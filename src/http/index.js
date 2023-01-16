@@ -1,5 +1,6 @@
 const http = require('node:http');
 const { writeUpload } = require('./writeUp')
+const { queryAll } = require('../mySql/index')
 
 const host = '127.0.0.1';
 const port = 3000;
@@ -42,6 +43,14 @@ const router = [
             // })
             req.pipe(writeTo);
             res.end('保存成功')
+        }
+    },
+    {
+        path:'/mysql',
+        handler:async (res,query)=>{
+            console.log(query);
+            const result = await queryAll();
+            res.end(JSON.stringify(result));
         }
     }
 ]
